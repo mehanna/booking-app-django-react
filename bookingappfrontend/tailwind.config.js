@@ -9,7 +9,7 @@ export default {
       // Custom font family configuration
       fontFamily: {
         // Defines a custom 'sans' font family with 'roboto' as the primary font and 'sans-serif' as the fallback
-        sans: ['roboto', 'sans-serif'],
+        sans: ['Font Awesome 5 Free', 'sans-serif'],
       },
       // Custom grid template columns configuration
       gridTemplateColumns: {

@@ -1,12 +1,30 @@
 import React from 'react'
 import logo from '../assets/images/logo.svg'
 import { Link } from 'react-router-dom'
+import {
+    FaUser,
+    FaSignInAlt,
+    FaSignOutAlt,
+    FaBuilding
+} from 'react-icons/fa'
 
 
 const Header = () => {
   
   return (
     <header className="bg-gray-100 " >
+      {/*Inline styles*/}
+      <style>
+        {`
+          .inLine {
+            display: inline-block;
+            vertical-align: middle;
+          }
+          .mr-1 {
+            margin-right: 0.25rem;
+          }
+        `}
+      </style>
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
@@ -45,22 +63,22 @@ const Header = () => {
                 to="login.html"
                 className="mr-3 text-gray-800 hover:text-gray-600"
               >
-                <i className="fa fa-sign-in"></i> Login
+                <FaSignInAlt className='inLine mr-1'/> Login
               </Link>
               <Link
                 to="register.html"
                 className="mr-3 text-gray-800 hover:text-gray-600"
               >
-                <i className="fa fa-user"></i> Register
+                <FaUser className='inLine mr-1'/>  Register
               </Link>
               <Link to="my-rooms.html">
-                <i className="fa fa-building"></i> My Rooms
+                <FaBuilding className='inLine mr-1'/> My Rooms
               </Link>
               <Link
                 to="login.html"
                 className="mx-3 text-gray-800 hover:text-gray-600"
               >
-                <i className="fa fa-sign-out"></i> Sign Out
+                <FaSignOutAlt className='inLine mr-1'/> Sign Out
               </Link>
             </div>
           </div>
