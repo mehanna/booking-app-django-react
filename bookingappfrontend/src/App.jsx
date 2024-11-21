@@ -1,13 +1,10 @@
 import React from 'react'
+import MainLayout from './layouts/MainLayout'
+import { Route} from 'react-dom'
 
 const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <p>Start editing to see some magic happen!</p>
-    </div>
+    <MainLayout />
   )
 }
 
