@@ -1,11 +1,25 @@
 import React from 'react'
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from 'react-router-dom'
 import MainLayout from './layouts/MainLayout'
-import { Route} from 'react-dom'
+
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<MainLayout />}>
+    </Route>
+  )
+);
 
 const App = () => {
-  return (
-    <MainLayout />
-  )
+
+  return <RouterProvider router={router} />;
+
 }
 
 export default App
+
