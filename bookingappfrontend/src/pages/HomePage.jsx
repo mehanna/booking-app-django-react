@@ -18,7 +18,7 @@ const HomePage = () => {
       const fetchJobs = async () => {
         try {
           // Fetching the jobs data from the API
-          const response = await fetch('http://localhost:3001/rooms');
+          const response = await fetch('/api/rooms');
           // Parsing the response to get the data
           const data = await response.json();
           // Logging the data to the console
