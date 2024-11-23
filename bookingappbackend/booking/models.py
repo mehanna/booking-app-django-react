@@ -12,7 +12,7 @@ class Room(models.Model):
     capacity = models.IntegerField()
     price_per_hour = models.DecimalField(max_digits=10, decimal_places=2)
     amenities = models.CharField(max_length=500)
-    #image = models.CharField(max_length=255)
+    image = models.ImageField(null=True, blank=True,upload_to='images/')
 
     def __str__(self):
         return self.name
