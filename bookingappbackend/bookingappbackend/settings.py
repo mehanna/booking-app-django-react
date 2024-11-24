@@ -40,7 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'booking',
+    'knox',
+    'accounts',
 ]
+# Configuration for Django REST framework
+REST_FRAMEWORK = {
+    # Specify the default authentication classes to be used by the REST framework
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'knox.auth.TokenAuthentication',  # Use Knox token-based authentication
+    ),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

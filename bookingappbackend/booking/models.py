@@ -1,8 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User  # Import the User model from Django's authentication system
 
 # Create your models here.
 class Room(models.Model):
-    user_id = models.IntegerField(blank=False)
+    #user_id = models.IntegerField(blank=False)
+    user_id = models.ForeignKey(
+        User,  # The related model is User
+        related_name="leads",  # The reverse relation name to access leads from a user instance
+        on_delete=models.CASCADE,  # Delete leads if the related user is deleted
+        null=True  # Allow the owner field to be null in the database
+    )
     name = models.CharField(max_length=255,blank=False)
     description = models.TextField(max_length=500)
     address = models.CharField(max_length=255,blank=False)
