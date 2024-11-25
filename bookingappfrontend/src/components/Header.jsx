@@ -41,13 +41,13 @@ const Header = () => {
                 </Link>
                 {/*<!-- Logged In Only -->*/}
                 <Link
-                  to="/bookings.html"
+                  to="/bookings"
                   className="rounded-md px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-700 hover:text-white"
                 >
                   Bookings
                 </Link>
                 <Link
-                  to="/add-room.html"
+                  to="/rooms/add"
                   className="rounded-md px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-700 hover:text-white"
                 >
                   Add Room
@@ -71,11 +71,11 @@ const Header = () => {
               >
                 <FaUser className='inLine mr-1'/>  Register
               </Link>
-              <Link to="my-rooms.html">
+              <Link to="/rooms/my">
                 <FaBuilding className='inLine mr-1'/> My Rooms
               </Link>
               <Link
-                to="login.html"
+                to="/login"
                 className="mx-3 text-gray-800 hover:text-gray-600"
               >
                 <FaSignOutAlt className='inLine mr-1'/> Sign Out
@@ -96,13 +96,13 @@ const Header = () => {
           </Link>
           {/*<!-- Logged In Only -->*/}
           <Link
-            to="/bookings.html"
+            to="/bookings"
             className="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-700 hover:text-white"
           >
             Bookings
           </Link>
           <Link
-            to="/add-room.html"
+            to="/rooms/add"
             className="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-700 hover:text-white"
           >
             Add Room
