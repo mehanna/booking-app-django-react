@@ -69,11 +69,16 @@ const RoomPage = () => {
 
   // Fetching the job data from the API using the loader function 
 const roomLoader = async ( { params }) => {
+  try{
     const response = await fetch(`/api/rooms/${params.id}`);
     const data = await response.json();
     console.log('room data:', data);
     return data;
-
+  }
+  catch (error) {
+    console.error('Fetch room data error:', error);
+    
+  }
 };
 
 //export default RoomPage

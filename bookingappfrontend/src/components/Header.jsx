@@ -60,13 +60,13 @@ const Header = () => {
             <div className="ml-4 flex items-center md:ml-6">
               {/*<!-- Logged Out Only -->*/}
               <Link
-                to="login.html"
+                to="/login"
                 className="mr-3 text-gray-800 hover:text-gray-600"
               >
                 <FaSignInAlt className='inLine mr-1'/> Login
               </Link>
               <Link
-                to="register.html"
+                to="/register"
                 className="mr-3 text-gray-800 hover:text-gray-600"
               >
                 <FaUser className='inLine mr-1'/>  Register

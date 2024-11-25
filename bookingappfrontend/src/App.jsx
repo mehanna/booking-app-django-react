@@ -10,6 +10,8 @@ import MainLayout from './layouts/MainLayout'
 import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 import RoomPage, { roomLoader } from './pages/RoomPage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/registerPage'
 
 
 const router = createBrowserRouter(
@@ -18,6 +20,9 @@ const router = createBrowserRouter(
       <Route index element={<HomePage />} />
       {/*<Route path='/rooms/:id' element={<RoomPage />}/>*/}
      <Route path='/rooms/:id' element={<RoomPage />} loader={roomLoader}/>
+      <Route path='/login' element={<LoginPage />} />
+      <Route path='/register' element={<RegisterPage />} />
+
       <Route path='*' element={<NotFoundPage />} />
     </Route>
   )
