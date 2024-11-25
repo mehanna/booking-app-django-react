@@ -30,7 +30,7 @@ const RoomPage = () => {
 
         <div className="flex flex-col sm:flex-row sm:space-x-6">
           <img
-            src={`/src/assets/images/rooms/${room.image}`}
+            src={`${room.image}`}
             alt={room.name}
             className="w-full sm:w-1/3 h-64 object-cover rounded-lg"
           />
