@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+     # Add the CORS headers app to bypass next.js 
+     # frontend get request cor error CORS policy: No 'Access-Control-Allow-Origin"
+    'corsheaders',
     'booking',
     'knox',
     'accounts',
@@ -54,6 +57,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -62,6 +66,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'bookingappbackend.urls'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",# Next.js frontend
+    "http://127.0.0.1:3000",# Next.js frontend
+]
 
 TEMPLATES = [
     {
