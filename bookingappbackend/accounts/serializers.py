@@ -6,28 +6,29 @@ from django.contrib.auth import authenticate  # Importing the authenticate funct
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User  # Specifying the model to serialize
-        fields = ('id', 'username', 'email')  # Specifying the fields to include in the serialization
+        fields = ('id','email')  # Specifying the fields to include in the serialization
 
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User  # Specifying the model to serialize
-        fields = ('id', 'username', 'email', 'password')  # Specifying the fields to include in the serialization
+        fields = ('id','email', 'password')  # Specifying the fields to include in the serialization
         extra_kwargs = {'password': {'write_only': True}}  # Making the password field write-only
 
     def create(self, validated_data):
         # Creating a new user with the validated data
-        user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
+        user = User.objects.create_user( validated_data['email'], validated_data['password'])
         return user  # Returning the created user
 
 # Login Serializer
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField()  # Defining a username field
-    password = serializers.CharField()  # Defining a password field
+    email = serializers.EmailField()  # get to email field
+    password = serializers.CharField()
 
     def validate(self, data):
-        # Authenticating the user with the provided data
-        user = authenticate(**data)
+        email = data.get('email')
+        password = data.get('password')
+        user = authenticate(username=User.objects.get(email=email).username, password=password)
         if user and user.is_active:
-            return user  # Returning the authenticated user if active
-        raise serializers.ValidationError("Incorrect Credentials")  # Raising an error if authentication fails
+            return user
+        raise serializers.ValidationError("Incorrect Credentials")
