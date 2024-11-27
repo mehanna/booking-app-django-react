@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image';
 
 
 const RoomCard = ({room}) => {
@@ -8,8 +9,10 @@ const RoomCard = ({room}) => {
     className="bg-white shadow rounded-lg p-4 mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center"
     >
         <div className="flex flex-col sm:flex-row sm:space-x-4">
-        <img
+        <Image
             src={`${room.image}`}
+            width={400}
+            height={400}
             alt={room.name}
             className="w-full sm:w-32 sm:h-32 mb-3 sm:mb-0 object-cover rounded-lg"
         />
