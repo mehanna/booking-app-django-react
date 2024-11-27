@@ -1,11 +1,22 @@
-import React from 'react'
+'use client';
+import {
+  React,
+  useEffect,
+  useActionState,
+} from 'react'
 import Link from 'next/link';
+import createSession from '../actions/createSession';
+
+
 
 const LoginPage = () => {
+  // passing the action to the useActionState hook with the action (createSession) and the initial state ({}}
+  const [state, formAction] = useActionState(createSession, {});
+
   return (
   <div className="flex items-center justify-center">
     <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm mt-20">
-      <form>
+      <form action={formAction} >
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Login
         </h2>
@@ -25,7 +36,7 @@ const LoginPage = () => {
 
         <div className="mb-6">
           <label htmlFor="password" className="block text-gray-700 font-bold mb-2"
-            >Password</label
+            >Password</label 
           >
           <input
             type="password"
