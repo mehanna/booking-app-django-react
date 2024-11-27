@@ -11,7 +11,7 @@ async function getSingleRooms(id) {
         // Parsing the response to get the data
         const data = await response.json();
         // Logging the data to the console
-        console.log('rooms data:', data);
+        //console.log('rooms data:', data);
         
         // revalidating the cache
         // Revalidate the cache for this path

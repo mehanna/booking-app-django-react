@@ -8,7 +8,8 @@ import getSingleRooms from '@/app/actions/getSingleRoom'
 
 
 const RoomPage = async ({ params } ) => {
-  const { id } = params
+  
+  const { id } = await params
 
   const room = await getSingleRooms(id);
 
