@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 async function getAllRooms() {
     try {
         // Fetching the rooms data from the API
-        const response = await fetch(`http://localhost:8000/api/rooms/`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/rooms/`);
 
         // Parsing the response to get the data
         const data = await response.json();
