@@ -6,6 +6,7 @@ import {
 } from 'react'
 import Link from 'next/link';
 import createSession from '../actions/createSession';
+import { toast } from 'react-toastify';
 
 
 
@@ -13,6 +14,13 @@ const LoginPage = () => {
   // passing the action to the useActionState hook with the action (createSession) and the initial state ({}}
   const [state, formAction] = useActionState(createSession, {});
 
+
+  useEffect(() => {
+    if (state.error) {
+      toast.error(state.error);
+      //alert(state.error);// alert is a built-in function in JavaScript that displays an alert box with a specified message.
+    }
+  }, [state]);
   return (
   <div className="flex items-center justify-center">
     <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm mt-20">
