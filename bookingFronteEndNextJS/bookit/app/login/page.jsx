@@ -7,18 +7,33 @@ import {
 import Link from 'next/link';
 import createSession from '../actions/createSession';
 import { toast } from 'react-toastify';
+import   {useRouter} from 'next/navigation';
 
 
 
 const LoginPage = () => {
   // passing the action to the useActionState hook with the action (createSession) and the initial state ({}}
   const [state, formAction] = useActionState(createSession, {});
-
+  
+  const router = useRouter();
 
   useEffect(() => {
-    if (state.error) {
-      toast.error(state.error);
+    if (state.error) 
+    {
+      if (state.status === 401) 
+      {
+        toast.error('Invalid email or password');
+      }
+      else{
+        toast.error('login failed');
+        console.error('Login failed with error:', state.error);
+      }
       //alert(state.error);// alert is a built-in function in JavaScript that displays an alert box with a specified message.
+    }
+    if (state.success) {
+      console.log('Login successful');
+      toast.success('Login successful');
+      router.push('/');
     }
   }, [state]);
   return (
@@ -32,7 +47,7 @@ const LoginPage = () => {
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 font-bold mb-2"
             >Email</label
-          >
+          > 
           <input
             type="email"
             id="email"
