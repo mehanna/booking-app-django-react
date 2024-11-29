@@ -23,7 +23,8 @@ async function createSession(previousState, formData) {
 
         // If the response is OK and contains a token, set a cookie with the token.
         if (res.ok && data.token) {
-            await cookies().set(
+            const cookiesInstance = await cookies(); // Get the cookies instance.
+            await cookiesInstance.set(
                 'django session', data.token, {
                     httpOnly: true, // Cookie is not accessible via JavaScript.
                     secure: true, // Cookie is only sent over HTTPS.
