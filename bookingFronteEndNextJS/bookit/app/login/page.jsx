@@ -31,7 +31,7 @@ const LoginPage = () => {
       //alert(state.error);// alert is a built-in function in JavaScript that displays an alert box with a specified message.
     }
     if (state.success) {
-      console.log('Login successful');
+      
       toast.success('Login successful');
       router.push('/');
     }
