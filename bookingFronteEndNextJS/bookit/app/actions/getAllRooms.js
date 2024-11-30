@@ -2,11 +2,13 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { makeRequest } from '@/app/utils/makeRequest'; // Import the makeRequest function from the utils folder.
+
 
 async function getAllRooms() {
     try {
         // Fetching the rooms data from the API
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/rooms/`);
+        const response = await makeRequest('/rooms', 'GET');
 
         // Parsing the response to get the data
         const data = await response.json();

@@ -1,5 +1,6 @@
 'use server'; // This directive indicates that the code is intended to run on the server side.
 import { cookies } from 'next/headers'; // Importing the cookies utility from Next.js headers.
+import { makeRequest } from '@/app/utils/makeRequest'; // Import the makeRequest function from the utils folder.
 
 async function createSession(previousState, formData) {
     // Extract email and password from formData.
@@ -7,45 +8,46 @@ async function createSession(previousState, formData) {
     const password = formData.get('password');
     console.log('email:', email, 'password:', password); // Log email and password for debugging.
 
-    // Set up headers and body for the POST request.
-    const config = {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password }) // Convert email and password to JSON string.
-    };
-
     try {
-        // Send a POST request to the login endpoint.
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, config);
-        const data = await res.json(); // Parse the response JSON.
-
-        // If the response is OK and contains a token, set a cookie with the token.
-        if (res.ok && data.token) {
-            const cookiesInstance = await cookies(); // Get the cookies instance.
+        // Create a request body with email and password.
+        const body = { 
+            email: email, 
+            password: password
+        }
+        // Make a POST request to the '/auth/login' endpoint with the request body.
+        const res = await makeRequest('/auth/login', 'POST', null, body);
+        if (!res.ok) {
+            // If the response is not ok, log the response and return an error object.
+            console.log('res:', res);
+            return { error: res.statusText, status: res.status };
+        }
+        // Parse the response data as JSON.
+        const data = await res.json();
+        // Handle incorrect credentials error.
+        if (data.non_field_errors && data.non_field_errors.includes("Incorrect Credentials")) 
+            return { error: "Incorrect Credentials", status: 401 };
+        // Handle any other errors from the response.
+        if (data.token) {
+            // If a token is found in the response, set it as a cookie.
+            const cookiesInstance = await cookies();
             await cookiesInstance.set(
-                'django session', data.token, {
-                    httpOnly: true, // Cookie is not accessible via JavaScript.
-                    secure: true, // Cookie is only sent over HTTPS.
-                    sameSite: 'strict', // Cookie is only sent in first-party context.
+                'django session', data.token, 
+                {
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: 'strict',
                     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 1), // Cookie expires in 1 day.
-                    path: '/', // Cookie is available on the entire site.
                 }
             );
+            // Return the previous state with a success flag.
             return {
-                ...previousState, // Spread the previous state.
-                success: true, // Indicate success.
+                ...previousState,
+                success: true,
             };
         }
+        // If no token is found, return an error object.
+        return { error: 'token not found', status: 401 };
 
-        // Handle incorrect credentials error.
-        if (data.non_field_errors && data.non_field_errors.includes("Incorrect Credentials")) {
-            return { error: "Incorrect Credentials", status: 401 };
-        }
-
-        // Return any other errors from the response.
-        return { error: data, status: res.status };
     } catch (err) {
         // Handle any network or unexpected errors.
         return { error: err.message, status: 500 };
