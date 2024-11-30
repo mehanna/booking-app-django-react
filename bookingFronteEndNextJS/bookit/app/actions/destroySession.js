@@ -4,8 +4,9 @@ import { makeRequest } from '@/app/utils/makeRequest'; // Import the makeRequest
 
 async function destroySession() {
     const sessionName = 'django session'; // Set the session cookie name.
-    const sessionCookie = await cookies().get(sessionName); // Get the session cookie.
-
+    const cookieStore = await cookies();
+    const sessionCookie = cookieStore.get('django session');
+    
     if (!sessionCookie) {
         // If no session cookie is found, return an error object.
         return { error: `No session cookie found`, status: 401 };
@@ -28,7 +29,7 @@ async function destroySession() {
         console.debug('res:', res); // Log the response for debugging.
 
         // Delete the session cookie.
-        cookies().delete(sessionName);
+        await cookieStore.delete(sessionName);
 
         // Return a success object.
         return {

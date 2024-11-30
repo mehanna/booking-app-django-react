@@ -11,7 +11,7 @@ async function createSession(previousState, formData) {
     try {
         // Create a request body with email and password.
         const body = { 
-            email: email, 
+            username: email, 
             password: password
         }
         // Make a POST request to the '/auth/login' endpoint with the request body.
