@@ -8,13 +8,16 @@ import Link from 'next/link';
 import createSession from '../actions/createSession';
 import { toast } from 'react-toastify';
 import   {useRouter} from 'next/navigation';
+import { useAuth } from '@/context/authContext';
 
 
 
 const LoginPage = () => {
   // passing the action to the useActionState hook with the action (createSession) and the initial state ({}}
   const [state, formAction] = useActionState(createSession, {});
-  
+  // get the global state and the dispatch function from the AuthContext  
+  const { isAuthenticated,setIsAuthenticated } = useAuth();
+
   const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +34,7 @@ const LoginPage = () => {
       //alert(state.error);// alert is a built-in function in JavaScript that displays an alert box with a specified message.
     }
     if (state.success) {
-      
+      setIsAuthenticated(true);
       toast.success('Login successful');
       router.push('/');
     }

@@ -1,16 +1,12 @@
 'use client';
-import {
-  React,
-  useEffect,
-  useState,
-} from 'react'
+import { React } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import logo from '@/assets/images/logo.svg'
 import destroySession from '@/app/actions/destroySession'
 import   {useRouter} from 'next/navigation';
 import { toast } from 'react-toastify';
-import checkAuth from '@/app/actions/checkAuth';
+import { useAuth } from '@/context/authContext';
 
 import {
     FaUser,
@@ -24,19 +20,8 @@ const Header = () => {
   
   const router = useRouter();
 
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
-
-  // useEffect hook to check if the user is authenticated when the component mounts
-  useEffect(() => 
-  {
-    const fetchAuthStatus = async () => 
-    {
-      const result = await checkAuth();
-      setIsAuthenticated(result.isAuthenticated);
-      console.log('isAuthenticated:', result.isAuthenticated);
-    }
-    fetchAuthStatus();
-  }, []);
+  // get the global state and the dispatch function from the AuthContext  
+  const { isAuthenticated,setIsAuthenticated } = useAuth();
 
 
   // handleLogout function by calling the destroySession action and redirecting the user to the login page
@@ -45,6 +30,7 @@ const Header = () => {
 
     if (success)
     {
+      setIsAuthenticated(false);
       router.push('/login');
       toast.success('Log out successful');
     }
