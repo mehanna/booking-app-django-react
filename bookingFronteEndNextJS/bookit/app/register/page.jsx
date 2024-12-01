@@ -1,11 +1,41 @@
-import React from 'react'
+'use client';
+import {
+  React,
+  useEffect,
+  useActionState,
+} from 'react'
 import Link from 'next/link';
+import createUser from '../actions/createUser';
+import { useAuth } from '@/context/authContext';
+import   {useRouter} from 'next/navigation';
+import { toast } from 'react-toastify';
 
 const RegisterPage = () => {
+  // passing the action to the useActionState hook with the action (createSession) and the initial state ({}}
+  const [state, formAction] = useActionState(createUser, {});
+  // get the global state and the dispatch function from the AuthContext  
+  const { isAuthenticated,setIsAuthenticated } = useAuth();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state.error) 
+    {
+      toast.error(`login failed: ${state.error}`);
+      //console.error('Login failed:', state.error);
+      //alert(state.error);// alert is a built-in function in JavaScript that displays an alert box with a specified message.
+    }
+    if (state.success) {
+      setIsAuthenticated(true);
+      toast.success('Register and Login user successful');
+      router.push('/');
+    }
+  }, [state]);
+
   return (
     <div className="flex items-center justify-center">
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm mt-20">
-        <form>
+        <form action={formAction}>
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
             Register
           </h2>
