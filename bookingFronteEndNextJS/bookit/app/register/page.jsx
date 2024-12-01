@@ -6,15 +6,12 @@ import {
 } from 'react'
 import Link from 'next/link';
 import createUser from '../actions/createUser';
-import { useAuth } from '@/context/authContext';
 import   {useRouter} from 'next/navigation';
 import { toast } from 'react-toastify';
 
 const RegisterPage = () => {
   // passing the action to the useActionState hook with the action (createSession) and the initial state ({}}
   const [state, formAction] = useActionState(createUser, {});
-  // get the global state and the dispatch function from the AuthContext  
-  const { isAuthenticated,setIsAuthenticated } = useAuth();
 
   const router = useRouter();
 
@@ -26,9 +23,8 @@ const RegisterPage = () => {
       //alert(state.error);// alert is a built-in function in JavaScript that displays an alert box with a specified message.
     }
     if (state.success) {
-      setIsAuthenticated(true);
-      toast.success('Register and Login user successful');
-      router.push('/');
+      toast.success('User created successfully you can now login');
+      router.push('/login');
     }
   }, [state]);
 
