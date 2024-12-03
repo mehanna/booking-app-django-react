@@ -1,24 +1,29 @@
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 from booking.models import Room
+from rest_framework import status
 from .serializers import RoomSerializer
 
-class RoomViewSet(viewsets.ModelViewSet):  # Define a viewset for the room model
-    # Specify the serializer class for this viewset
-    serializer_class = RoomSerializer  # Use RoomSerializer to serialize Room objects
+class RoomViewSet(viewsets.ModelViewSet):
+    serializer_class = RoomSerializer
 
     def get_permissions(self):
-        # Allow any user to access the list view, but require authentication for other actions
-        if self.action == 'list':
+        if self.action in ['list', 'retrieve']:
             self.permission_classes = [AllowAny]
+        elif self.action in ['create', 'destroy']:
+            self.permission_classes = [IsAuthenticated]
         else:
             self.permission_classes = [IsAuthenticated]
         return super().get_permissions()
 
     def get_queryset(self):
-        # Override the get_queryset method to return all rooms
-        return Room.objects.all()  # Return all Room objects
-    
+        return Room.objects.all()
+
     def perform_create(self, serializer):
-        # Override the perform_create method to set the user_id of the room to the authenticated user
-        serializer.save(user_id=self.request.user)  # Save the room with the user_id set to the authenticated user
+        serializer.save(user_id=self.request.user)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
