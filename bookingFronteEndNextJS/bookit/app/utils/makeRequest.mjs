@@ -29,9 +29,9 @@ async function makeRequest(path, method = 'GET', token = null, body = null) {
 
     try {
         // Log the request configuration for debugging.
-        console.debug('config:', config);
+        //console.debug('config:', config);
         // Log the full URL for debugging.
-        console.debug('url:', `${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`);
+        //console.debug('url:', `${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`);
         // Make the HTTP request using fetch and return the response.
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`, config);
         return res;
