@@ -6,7 +6,7 @@ export async function middleware(req, ev) {
   // Extract the href and pathname properties from the request's nextUrl object.
   const { pathname } = req.nextUrl;
   // Log the pathname and href to the console for debugging purposes.
-  console.log('**Middleware** :', pathname,'File:', __filename);
+  console.debug('Middleware check if isAuthenticated :', pathname,'File:', __filename);
 
   // start of my main code 
   const {isAuthenticated} = await checkAuth();

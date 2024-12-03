@@ -1,7 +1,31 @@
-import React from 'react'
+'use client';
+import {
+    React,
+    useEffect,
+    useActionState,
+  } from 'react'
 import Heading from '@/components/Heading';
+import createRoom from '@/app/actions/createRoom';
+import {useRouter} from 'next/navigation';
+import { toast } from 'react-toastify';
 
 const page = () => {
+
+  const router = useRouter();
+  // passing the action to the useActionState hook with the action (createSession) and the initial state ({}}
+  const [state, formAction] = useActionState(createRoom, {});
+  useEffect(() => {
+    if (state.error) 
+    {
+        console.log(`Adding room failed: ${state.error}`);
+        toast.error(`Adding room failed: ${state.error}`);
+    }
+    if (state.success) {
+      toast.success('Added room successfully');
+      router.push('/');
+    }
+  }, [state]);
+
   return (
     <>
         {/* Heading: Displaying the room name */}
@@ -9,7 +33,7 @@ const page = () => {
 
         {/* Data Displaying the room booking details */}
         <div className="bg-white shadow-lg rounded-lg p-6 w-full">
-        <form>
+        <form action={formAction}>
         <div className="mb-4">
             <label for="name" className="block text-gray-700 font-bold mb-2"
             >Room Name</label

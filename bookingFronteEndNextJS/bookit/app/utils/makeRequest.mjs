@@ -14,7 +14,17 @@ async function makeRequest(path, method = 'GET', token = null, body = null) {
 
     // If a body is provided, stringify it and add it to the request configuration.
     if (body) {
-        config.body = JSON.stringify(body);
+        // formData is a built-in JavaScript object that allows you to create a new FormData object.
+        // you can use formDatat for uploading images and files. otherwise, you can use JSON.stringify
+        if (body instanceof FormData) 
+        {
+            config.body = body;
+            delete config.headers['Content-Type'];
+        } 
+        else 
+        {
+            config.body = JSON.stringify(body);
+        }
     }
 
     try {
