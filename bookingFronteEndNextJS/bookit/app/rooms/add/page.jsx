@@ -9,7 +9,7 @@ import createRoom from '@/app/actions/createRoom';
 import {useRouter} from 'next/navigation';
 import { toast } from 'react-toastify';
 
-const page = () => {
+const AddRoomPage = () => {
 
   const router = useRouter();
   // passing the action to the useActionState hook with the action (createSession) and the initial state ({}}
@@ -35,7 +35,7 @@ const page = () => {
         <div className="bg-white shadow-lg rounded-lg p-6 w-full">
         <form action={formAction}>
         <div className="mb-4">
-            <label for="name" className="block text-gray-700 font-bold mb-2"
+            <label htmlFor="name" className="block text-gray-700 font-bold mb-2"
             >Room Name</label
             >
             <input
@@ -49,7 +49,7 @@ const page = () => {
         </div>
 
         <div className="mb-4">
-            <label for="description" className="block text-gray-700 font-bold mb-2"
+            <label htmlFor="description" className="block text-gray-700 font-bold mb-2"
             >Description</label
             >
             <textarea
@@ -62,7 +62,7 @@ const page = () => {
         </div>
 
         <div className="mb-4">
-            <label for="sqft" className="block text-gray-700 font-bold mb-2"
+            <label htmlFor="sqft" className="block text-gray-700 font-bold mb-2"
             >Square Feet</label
             >
             <input
@@ -76,7 +76,7 @@ const page = () => {
         </div>
 
         <div className="mb-4">
-            <label for="capacity" className="block text-gray-700 font-bold mb-2"
+            <label htmlFor="capacity" className="block text-gray-700 font-bold mb-2"
             >Capacity</label
             >
             <input
@@ -107,7 +107,7 @@ const page = () => {
         </div>
 
         <div className="mb-4">
-            <label for="address" className="block text-gray-700 font-bold mb-2"
+            <label htmlFor="address" className="block text-gray-700 font-bold mb-2"
             >Address</label
             >
             <input
@@ -121,7 +121,7 @@ const page = () => {
         </div>
 
         <div className="mb-4">
-            <label for="location" className="block text-gray-700 font-bold mb-2"
+            <label htmlFor="location" className="block text-gray-700 font-bold mb-2"
             >Location</label
             >
             <input
@@ -135,7 +135,7 @@ const page = () => {
         </div>
 
         <div className="mb-4">
-            <label for="availability" className="block text-gray-700 font-bold mb-2"
+            <label htmlFor="availability" className="block text-gray-700 font-bold mb-2"
             >Availability</label
             >
             <input
@@ -149,7 +149,7 @@ const page = () => {
         </div>
 
         <div className="mb-4">
-            <label for="amenities" className="block text-gray-700 font-bold mb-2"
+            <label htmlFor="amenities" className="block text-gray-700 font-bold mb-2"
             >Amenities</label
             >
             <input
@@ -164,7 +164,7 @@ const page = () => {
 
         {/*<!-- Image Upload -->*/}
         <div className="mb-8">
-            <label for="image" className="block text-gray-700 font-bold mb-2"
+            <label htmlFor="image" className="block text-gray-700 font-bold mb-2"
             >Image</label
             >
 
@@ -192,4 +192,4 @@ const page = () => {
   )
 }
 
-export default page
+export default AddRoomPage

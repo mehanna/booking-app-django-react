@@ -1,8 +1,6 @@
 'use server'; // This directive indicates that the code is intended to run on the server side.
 import { cookies } from 'next/headers'; // Importing the cookies utility from Next.js headers.
 import { makeRequest } from '@/app/utils/makeRequest'; // Import the makeRequest function from the utils folder.
-import checkAuth from './checkAuth';
-import fs from 'fs';
 
 async function createRoom(previousState, formData)
 {

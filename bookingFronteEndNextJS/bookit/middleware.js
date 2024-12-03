@@ -20,5 +20,5 @@ export async function middleware(req, ev) {
 // Configuration object for the middleware, specifying that it should run on the '/login' and '/register' routes.
 export const config = {
   //matcher: ['/login', '/register'],
-  matcher: ['/bookings'],
+  matcher: ['/bookings','/rooms/my','/rooms/add'],
 };
