@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from booking.models import Room
+from booking.models import Room, RoomBooking
 from rest_framework import status
-from .serializers import RoomSerializer
+from .serializers import RoomSerializer, BookingSerializer
 
 class RoomViewSet(viewsets.ModelViewSet):
     # Specifies the serializer class to be used for this viewset
@@ -37,6 +37,32 @@ class RoomViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         # Deletes a room instance
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+class BookingViewSet(viewsets.ModelViewSet):
+    # Specifies the serializer class to be used for this viewset
+    serializer_class = BookingSerializer
+
+    def get_permissions(self):
+        # Sets permissions based on the action being performed
+        self.permission_classes = [IsAuthenticated]    
+        return super().get_permissions()
+
+    def get_queryset(self):
+        # Returns the queryset of bookings based on the user's authentication status
+        user = self.request.user
+        booking = RoomBooking.objects.filter(user_id=user.id) 
+        return booking
+
+    def perform_create(self, serializer):
+        # Saves a new booking instance with the user_id set to the current authenticated user
+        serializer.save(user_id=self.request.user)
+
+    def destroy(self, request, *args, **kwargs):
+        # Deletes a booking instance
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
