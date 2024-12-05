@@ -2,20 +2,45 @@ import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 
-
 const BookedRoomCard = ({booking}) => {
+
+   const { room: room } = booking;
+    
+   const formatDateString = (dateString) => {
+    const date = new Date(dateString);
+  
+    // Get month
+    const options = { month: 'short' };
+    const month = date.toLocaleString('en-US', options, { timeZone: 'UTC' });
+  
+    // Get day
+    const day = date.getUTCDate();
+  
+    // Format time in UTC 12-hour
+    const timeOptions = {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+      timeZone: 'UTC',
+    };
+  
+    const time = date.toLocaleString('en-US', timeOptions);
+  
+    // Final formatted string
+    return `${month} ${day} at ${time}`;
+  };
 
   return (
     <div
     className="bg-white shadow rounded-lg p-4 mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center"
   >
     <div>
-      <h4 className="text-lg font-semibold">Training Room</h4>
+    <h4 className='text-lg font-semibold'>{room.name}</h4>
       <p className="text-sm text-gray-600">
-        <strong>Check In:</strong> July 5, 2024 11:00am
+        <strong>Check In:</strong>  {formatDateString(booking.start_DateTime)}
       </p>
       <p className="text-sm text-gray-600">
-        <strong>Check Out:</strong> July 5, 2024 1:00pm
+        <strong>Check Out:</strong> {formatDateString(booking.end_DateTime)}
       </p>
     </div>
     <div
