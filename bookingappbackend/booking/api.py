@@ -54,7 +54,7 @@ class BookingViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         # Returns the queryset of bookings based on the user's authentication status
         user = self.request.user
-        booking = RoomBooking.objects.filter(user_id=user.id) 
+        booking = RoomBooking.objects.filter(user_id=user.id).select_related('room')
         return booking
 
     def perform_create(self, serializer):

@@ -8,6 +8,8 @@ class RoomSerializer(serializers.ModelSerializer):
         
 
 class BookingSerializer(serializers.ModelSerializer):
+    room = RoomSerializer()
+    
     class Meta:
         model = RoomBooking
         fields = '__all__'
