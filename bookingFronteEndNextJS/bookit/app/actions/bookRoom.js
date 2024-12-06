@@ -2,6 +2,7 @@
 import { cookies } from 'next/headers'; // Importing the cookies utility from Next.js headers.
 import { makeRequest } from '@/app/utils/makeRequest'; // Import the makeRequest function from the utils folder.
 import { revalidatePath } from 'next/cache';
+import checkRoomAvailability from './checkRoomAvailability';
 
 
 async function bookRoom(previousState, formData) {
@@ -35,6 +36,15 @@ async function bookRoom(previousState, formData) {
         start_DateTime: start_DateTime,
         end_DateTime: end_DateTime
     }
+
+    // Check if the room is available
+    const isAvailable = await checkRoomAvailability(body.room, start_DateTime, end_DateTime);
+    if (!isAvailable || isAvailable.error) 
+    {
+        return { error: 'Room is not available', status: 400 };
+    }
+
+
     try
     {
         const res = await makeRequest('/bookings/', 'POST', token, body);
