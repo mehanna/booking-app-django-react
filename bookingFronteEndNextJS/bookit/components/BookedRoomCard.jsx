@@ -20,12 +20,13 @@ const BookedRoomCard = ({booking}) => {
       // Get the day of the month
       const day = date.getUTCDate();
     
-      // Format the time in 12-hour format with AM/PM in UTC
+      // Format the time in 12-hour format with AM/PM in local time 
       const timeOptions = {
         hour: 'numeric',
         minute: 'numeric',
         hour12: true,
-        timeZone: 'UTC',
+        // get local time zone
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       };
       const time = date.toLocaleString('en-US', timeOptions);
     
