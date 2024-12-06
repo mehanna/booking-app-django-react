@@ -52,9 +52,23 @@ class BookingViewSet(viewsets.ModelViewSet):
         return super().get_permissions()
 
     def get_queryset(self):
-        # Returns the queryset of bookings based on the user's authentication status
+        # Get the current authenticated user
         user = self.request.user
-        booking = RoomBooking.objects.filter(user_id=user.id).select_related('room')
+        # Get the room ID from the request parameters, if provided
+        room_id = self.request.query_params.get('room.id', None)
+
+        # retrieve the booking instances based on the user's authentication status and room ID
+        # if room_id is provided, retrieve bookings for that room only
+        # otherwise, retrieve bookings for the authenticated user
+        if room_id:
+            booking = RoomBooking.objects.filter(room_id=room_id)
+        else:
+            booking = RoomBooking.objects.filter(user_id=user.id)
+        
+        
+        # Use select_related to optimize the query for the related room data
+        booking = booking.select_related('room')
+        
         return booking
 
     def perform_create(self, serializer):
