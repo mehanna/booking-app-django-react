@@ -23,5 +23,6 @@
       "src": "/(.*)",
       "dest": "bookingappbackend/wsgi.py"
     }
-  ]
+  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
