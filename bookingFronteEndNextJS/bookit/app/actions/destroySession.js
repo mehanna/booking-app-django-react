@@ -25,8 +25,6 @@ async function destroySession() {
             console.log('res:', res);
             return { error: res.statusText, status: res.status };
         }
-        console.debug('destroy token:', token); // Log the token for debugging.
-        console.debug('res:', res); // Log the response for debugging.
 
         // Delete the session cookie.
         await cookieStore.delete(sessionName);
