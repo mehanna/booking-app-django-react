@@ -1,3 +1,5 @@
+import os
+from django.conf import settings
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -38,7 +40,17 @@ class RoomViewSet(viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         # Deletes a room instance
         instance = self.get_object()
+        
+        # Get the image path
+        image_path = instance.image.path
+        
+        # Perform the destroy operation
         self.perform_destroy(instance)
+        
+        # Delete the image file
+        if os.path.exists(image_path):
+            os.remove(image_path)
+        
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
