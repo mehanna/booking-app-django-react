@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,9 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q(wy!p(1qkhv90(ou$yqwwb*rjl1n0d))zn$t^*o7ev%pe=a5t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app','.new.sh']
+
 
 
 # Application definition
@@ -100,6 +102,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+DATABASES['default'] = dj_database_url.parse("postgresql://booking_django_user:294HgnHnQbKcEjiiMGKY76XCcso2YL7j@dpg-ct9tkbd6l47c73betlg0-a.oregon-postgres.render.com/booking_django")
 
 
 # Password validation
