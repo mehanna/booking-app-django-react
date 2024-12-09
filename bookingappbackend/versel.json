@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "bookingappbackend/wsgi.py",
+      "src": "/bookingappbackend/wsgi.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
     },
@@ -21,7 +21,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "bookingappbackend/wsgi.py"
+      "dest": "/bookingappbackend/wsgi.py"
     }
   ],
   "outputDirectory": "ui/staticfiles"
