@@ -70,10 +70,10 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'bookingappbackend.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Next.js frontend
-    "http://127.0.0.1:3000",  # Next.js frontend
-    "https://booking-app-django.vercel.app",  # Production frontend
-     
+    "*",
+    #"http://localhost:3000",  # Next.js frontend
+    #"http://127.0.0.1:3000",  # Next.js frontend
+    #"https://your-production-domain.com",  # Production frontend
 ]
 
 TEMPLATES = [
@@ -154,23 +154,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, "ui/staticfiles")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'debug.log'),
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
