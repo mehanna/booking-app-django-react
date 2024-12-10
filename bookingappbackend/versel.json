@@ -1,8 +1,0 @@
-{
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "bookingappbackend/wsgi.py"
-      }
-    ]
-  }
