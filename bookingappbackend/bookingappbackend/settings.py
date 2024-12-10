@@ -70,9 +70,10 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'bookingappbackend.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    "*"
-    #"http://localhost:3000",# Next.js frontend
-    #"http://127.0.0.1:3000",# Next.js frontend
+    "http://localhost:3000",  # Next.js frontend
+    "http://127.0.0.1:3000",  # Next.js frontend
+    "https://booking-app-django.vercel.app",  # Production frontend
+     
 ]
 
 TEMPLATES = [
