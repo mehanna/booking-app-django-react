@@ -14,6 +14,8 @@ from pathlib import Path
 import dj_database_url
 import os
 
+from booking.appwrite_storage import AppwriteMediaStorage
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -70,9 +72,9 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'bookingappbackend.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    "*",
-    #"http://localhost:3000",  # Next.js frontend
-    #"http://127.0.0.1:3000",  # Next.js frontend
+    #"*",
+    "http://localhost:3000",  # Next.js frontend
+    "http://127.0.0.1:3000",  # Next.js frontend
     #"https://your-production-domain.com",  # Production frontend
 ]
 
@@ -142,9 +144,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+APPWRITE_ENDPOINT = 'https://cloud.appwrite.io/v1'
+APPWRITE_PROJECT_ID = '6758d5370025daa3e1af'
+APPWRITE_API_KEY = 'standard_3552656b2da695e17c8285c2d8a39e735aa0a06086fc9eb1f83dd88507cd19716479a664cd700d23a49f1d527b959723b638d3be6ab797066876daaa20ec49d4ad61a4814e52652caa6468de0289e8d118add8145c50b79a3db0a9f7af1ce68360760eab535c325afb39257f38f0483e84014348072460566d6e3de5e74a79cf'
+APPWRITE_BUCKET_ID = 'rooms'
+DEFAULT_FILE_STORAGE = 'booking.appwrite_storage.AppwriteMediaStorage'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "ui/static")]
 STATIC_URL = "static/"

@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from booking.models import Room, RoomBooking
 from rest_framework import status
 from .serializers import RoomSerializer, BookingSerializer
+from booking.appwrite_storage import AppwriteMediaStorage
+
 
 class RoomViewSet(viewsets.ModelViewSet):
     # Specifies the serializer class to be used for this viewset
@@ -40,16 +42,17 @@ class RoomViewSet(viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         # Deletes a room instance
         instance = self.get_object()
-        
-        # Get the image path
-        image_path = instance.image.path
-        
+
+        # Get the image name
+        image_name = instance.image.name
+        # Delete the image file
+        storage = AppwriteMediaStorage()
+        if storage.exists(image_name):
+            storage.delete(image_name)
+            print("Image deleted: ", image_name)
+            
         # Perform the destroy operation
         self.perform_destroy(instance)
-        
-        # Delete the image file
-        if os.path.exists(image_path):
-            os.remove(image_path)
         
         return Response(status=status.HTTP_204_NO_CONTENT)
     
