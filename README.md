@@ -2,6 +2,8 @@
 
 A full-stack room booking application built with **Django REST Framework** backend and **Next.js** frontend, featuring user authentication, room management, and booking functionality
 
+<img width="1867" height="1057" alt="Screenshot 2025-10-02 at 2 54 11 PM" src="https://github.com/user-attachments/assets/ce500306-bfb4-45fd-b7ea-95d06a73733c" />
+
 
 ## 🚀 Features
 
