@@ -14,24 +14,23 @@ const BookedRoomCard = ({booking}) => {
       const date = new Date(dateString);
     
       // Get the abbreviated month name
-      const options = { month: 'short' };
-      const month = date.toLocaleString('en-US', options, { timeZone: 'UTC' });
+      const options = { month: 'short', timeZone: 'UTC' };
+      const month = date.toLocaleString('en-US', options);
     
       // Get the day of the month
       const day = date.getUTCDate();
     
-      // Format the time in 12-hour format with AM/PM in local time 
+      // Format the time consistently using UTC to avoid hydration mismatch
       const timeOptions = {
         hour: 'numeric',
         minute: 'numeric',
         hour12: true,
-        // get local time zone
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        timeZone: 'UTC',
       };
       const time = date.toLocaleString('en-US', timeOptions);
     
       // Return the final formatted string
-      return `${month} ${day} at ${time}`;
+      return `${month} ${day} at ${time} UTC`;
     };
 
     return (

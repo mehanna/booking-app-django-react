@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from booking.models import Room, RoomBooking
 from rest_framework import status
 from .serializers import RoomSerializer, BookingSerializer
-from booking.appwrite_storage import AppwriteMediaStorage
 
 
 class RoomViewSet(viewsets.ModelViewSet):
@@ -43,13 +42,11 @@ class RoomViewSet(viewsets.ModelViewSet):
         # Deletes a room instance
         instance = self.get_object()
 
-        # Get the image name
-        image_name = instance.image.name
-        # Delete the image file
-        storage = AppwriteMediaStorage()
-        if storage.exists(image_name):
-            storage.delete(image_name)
-            print("Image deleted: ", image_name)
+        # Delete the image file if it exists
+        if instance.image:
+            if os.path.isfile(instance.image.path):
+                os.remove(instance.image.path)
+                print("Image deleted: ", instance.image.path)
             
         # Perform the destroy operation
         self.perform_destroy(instance)

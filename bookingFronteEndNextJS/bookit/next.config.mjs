@@ -1,11 +1,30 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // The `images` property is used to configure the domains from which images can be loaded.
-    // Here, the `domains` array includes 'localhost', allowing images to be loaded from the local development server.
+    // Configuration for Django backend images
     images: {
-        domains: ['cloud.appwrite.io'],
-        
-      },
-  };
+        // Allow images from Django backend
+        remotePatterns: [
+            {
+                protocol: 'http',
+                hostname: '127.0.0.1', 
+                port: '8000',
+                pathname: '/media/**',
+            },
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '8000',
+                pathname: '/media/**',
+            }
+        ],
+        // Optimize images from Django backend
+        unoptimized: false,
+    },
+    // Experimental features to help with hydration
+    experimental: {
+        // This helps reduce hydration mismatches
+        optimizeCss: true,
+    },
+};
   
 export default nextConfig;

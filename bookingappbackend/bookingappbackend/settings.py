@@ -13,8 +13,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import dj_database_url
 import os
+from dotenv import load_dotenv
 
-from booking.appwrite_storage import AppwriteMediaStorage
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,12 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q(wy!p(1qkhv90(ou$yqwwb*rjl1n0d))zn$t^*o7ev%pe=a5t'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-q(wy!p(1qkhv90(ou$yqwwb*rjl1n0d))zn$t^*o7ev%pe=a5t')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app','.new.sh']
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '.new.sh', 'localhost']
 
 
 
@@ -100,13 +102,27 @@ WSGI_APPLICATION = 'bookingappbackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Database Configuration
+# Check for DATABASE_URL environment variable first
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    # Use PostgreSQL from environment variable (production/remote)
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
     }
-}
-DATABASES['default'] = dj_database_url.parse("postgresql://booking_django_user:294HgnHnQbKcEjiiMGKY76XCcso2YL7j@dpg-ct9tkbd6l47c73betlg0-a.oregon-postgres.render.com/booking_django")
+    # Add SSL configuration for PostgreSQL
+    DATABASES['default']['OPTIONS'] = {
+        'sslmode': 'require',
+    }
+else:
+    # Use SQLite for local development
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -144,11 +160,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-APPWRITE_ENDPOINT = 'https://cloud.appwrite.io/v1'
-APPWRITE_PROJECT_ID = '6758d5370025daa3e1af'
-APPWRITE_API_KEY = 'standard_3552656b2da695e17c8285c2d8a39e735aa0a06086fc9eb1f83dd88507cd19716479a664cd700d23a49f1d527b959723b638d3be6ab797066876daaa20ec49d4ad61a4814e52652caa6468de0289e8d118add8145c50b79a3db0a9f7af1ce68360760eab535c325afb39257f38f0483e84014348072460566d6e3de5e74a79cf'
-APPWRITE_BUCKET_ID = 'rooms'
-DEFAULT_FILE_STORAGE = 'booking.appwrite_storage.AppwriteMediaStorage'
+# Media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "ui/static")]
 STATIC_URL = "static/"

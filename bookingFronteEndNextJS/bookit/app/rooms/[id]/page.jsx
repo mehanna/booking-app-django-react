@@ -18,6 +18,7 @@ const RoomPage = async ({ params } ) => {
       <Heading title="Room not found" /> 
     )
   }
+
   return (
     <>
       {/* Heading: Displaying the room name */}
@@ -35,7 +36,7 @@ const RoomPage = async ({ params } ) => {
 
         <div className="flex flex-col sm:flex-row sm:space-x-6">
           <Image
-            src={`${room.image}`}
+            src={room.image}
             width={400}
             height={400}
             alt={room.name}
