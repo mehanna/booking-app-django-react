@@ -1,0 +1,104 @@
+# Root level .gitignore for booking-app-django-react
+
+# Environment files - NEVER commit these to public repos
+.env
+.env.local
+.env.production
+.env.development
+.env.test
+.env*.local
+
+# Database files
+*.sqlite3
+*.sqlite3-journal
+*.db
+
+# Python/Django
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+*.log
+*.pot
+*.pyc
+local_settings.py
+media/
+staticfiles/
+
+# Node.js/Next.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.next/
+.out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# Package managers
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+package-lock.json
+yarn.lock
+
+# Testing
+coverage/
+.nyc_output
+.pytest_cache/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Security files
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.json
+
+# Deployment
+.vercel
+.netlify
+
+# Logs
+*.log
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary folders
+tmp/
+temp/
